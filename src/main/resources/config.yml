@@ -1,0 +1,9 @@
+## YAML Template.
+
+Fees:
+  Deposit:
+    Flat: 0.0
+    PerXP: 0.0
+  Withdrawl:
+    Flat: 0.0
+    PerXP: 0.0

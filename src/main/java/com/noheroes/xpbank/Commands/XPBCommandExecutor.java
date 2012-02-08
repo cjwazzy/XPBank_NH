@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 No Heroes.
+ * Copyright (C) 2012 No Heroes.
  * See readme for license details.
  */
 package com.noheroes.xpbank.Commands;
@@ -8,6 +8,7 @@ import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Interfaces.Cmd;
 import com.noheroes.xpbank.Messaging;
+import com.noheroes.xpbank.XPBank;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,6 +19,11 @@ import org.bukkit.command.CommandSender;
  */
 public class XPBCommandExecutor implements CommandExecutor {
     private Cmd cmd;
+    private XPBank xpb;
+    
+    public XPBCommandExecutor(XPBank xpb) {
+        this.xpb = xpb;
+    }
     
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String mainArg;
