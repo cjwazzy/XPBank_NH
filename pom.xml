@@ -3,11 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.noheroes</groupId>
-  <artifactId>SeedReward</artifactId>
+  <artifactId>XPBank_NH</artifactId>
   <version>0.1</version>
   <packaging>jar</packaging>
-
-  <name>SeedReward</name>
   <url>http://maven.apache.org</url>
   
   <build>
@@ -43,20 +41,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.iConomy</groupId>
-            <artifactId>iConomy</artifactId>
-            <version>5.0</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.iCo6</groupId>
-            <artifactId>iConomy</artifactId>
-            <version>6.0.8b</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
             <version>1.2.8</version>
@@ -64,4 +48,5 @@
             <scope>compile</scope>
         </dependency>
   </dependencies>
+    <name>XPBank_NH</name>
 </project>

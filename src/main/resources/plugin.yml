@@ -1,0 +1,15 @@
+name: XPBank_NH
+main: com.noheroes.xpbank.XPBank
+version: 0.1
+author: Sorklin
+depend: [Vault]
+description: Allows players to temporarily and permenantly store their Experience.
+commands:
+  xpbank:
+    description: Commands for main XP bank.
+    aliases: xpb
+    usage: Type "/xpb help" for more information.
+  xphold:
+    description: Commands for main XP temporary holding.
+    aliases: xph
+    usage: Type "/xph help" for more information.
