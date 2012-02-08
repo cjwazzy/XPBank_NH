@@ -37,8 +37,10 @@ public class XPBCommandExecutor implements CommandExecutor {
             //General commands
             if (mainArg.equalsIgnoreCase("help") || mainArg.equalsIgnoreCase("?"))
                 this.cmd = new HelpCmd(sender, args);
-            else if (mainArg.equalsIgnoreCase("help"))
-                this.cmd = new HelpCmd(sender, args);
+            else if (mainArg.equalsIgnoreCase("me"))
+                this.cmd = new MeCmd(sender, args);
+            else if (mainArg.equalsIgnoreCase("balance") || mainArg.equalsIgnoreCase("bal"))
+                this.cmd = new BalanceCmd(sender, args);
 
             //Unknown
             else

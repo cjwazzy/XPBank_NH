@@ -4,6 +4,7 @@
  */
 package com.noheroes.xpbank;
 
+import com.mini.Arguments;
 import com.mini.Mini;
 import java.io.File;
 import java.io.IOException;
@@ -14,14 +15,14 @@ import java.io.IOException;
  */
 public class XPBStorage {
     private XPBank xpb;
-    private Mini miniXP;
-    private File miniFile;
+    private Mini miniXP = null;
+    private File miniFile = null;
     
     public XPBStorage () {
         this.xpb = XPBank.get();
     }
     
-    public void initStorage(String fileName) {
+    public boolean initStorage(String fileName) {
         try {
             miniFile = new File(xpb.getDataFolder(), fileName);
             
@@ -34,25 +35,70 @@ public class XPBStorage {
             XPBank.log("Could not connect to " + fileName + ".");
             ioe.printStackTrace();
         }
+        return (miniXP != null);
     }
     
     public int getBalance(String player){
-        return 0;
+        int xp = 0;
+        try {
+            xp = balance(player.toLowerCase());
+        } catch (NumberFormatException nfe){
+            XPBank.log("NFE on getbalance");
+            nfe.printStackTrace();
+        }
+        return xp;
     }
     
     public void setBalance(String player, Integer xp){
-        
+        Arguments entry = new Arguments(player.toLowerCase());
+        entry.setValue("xp", xp.toString());
+        miniXP.addIndex(entry.getKey(), entry);
+        miniXP.update();
     }
     
     public void add(String player, Integer xp){
+        int currentXP;
         
+        try {
+            currentXP = balance(player.toLowerCase());
+        } catch (NumberFormatException nfe){
+            XPBank.log("NFE on add");
+            nfe.printStackTrace();
+            return;
+        }
+        
+        currentXP += xp;
+        setBalance(player, currentXP);
     }
     
     public void subtract(String player, Integer xp){
+        int currentXP;
         
+        try {
+            currentXP = balance(player.toLowerCase());
+        } catch (NumberFormatException nfe){
+            XPBank.log("NFE on add");
+            nfe.printStackTrace();
+            return;
+        }
+        
+        if(xp > currentXP)
+            currentXP = 0;
+        else
+            currentXP -= xp;
+        setBalance(player, currentXP);
     }
     
     public void remove(String player){
-        
+        if(miniXP.hasIndex(player.toLowerCase()))
+            miniXP.removeIndex(player.toLowerCase());
+    }
+    
+    private int balance(String player) throws NumberFormatException {
+        //Arguments entry = null;
+        return (miniXP.hasIndex(player)) ?  miniXP.getArguments(player).getInteger(player) : 0;
+//        if(miniXP.hasIndex(player))
+//            entry = miniXP.getArguments(player);
+//        return entry.getInteger(player);
     }
 }

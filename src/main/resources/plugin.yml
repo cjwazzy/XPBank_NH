@@ -7,9 +7,5 @@ description: Allows players to temporarily and permenantly store their Experienc
 commands:
   xpbank:
     description: Commands for main XP bank.
-    aliases: xpb
+    aliases: [xpb, xp] 
     usage: Type "/xpb help" for more information.
-  xphold:
-    description: Commands for main XP temporary holding.
-    aliases: xph
-    usage: Type "/xph help" for more information.

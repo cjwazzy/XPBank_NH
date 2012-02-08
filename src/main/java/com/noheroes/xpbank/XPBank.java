@@ -18,8 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class XPBank extends JavaPlugin {
 
     private static XPBank xpb;
-    private static final XPBStorage xpStore = new XPBStorage();
-    private static final XPBStorage xpHold = new XPBStorage();
+    private static final XPBStorage xpBankStorage = new XPBStorage();
+    private static final XPBStorage xpHoldStorage = new XPBStorage();
     public static Economy econ = null;
     
     
@@ -44,6 +44,9 @@ public class XPBank extends JavaPlugin {
         XPBank.log("Initializing commands");
         getCommand("xpb").setExecutor(new XPBCommandExecutor(this));
         
+        XPBank.log("Connecting to storage.");
+        xpBankStorage.initStorage(Properties.miniFileName);
+        xpHoldStorage.initStorage(Properties.miniHoldName);
     }
     
     public static XPBank get(){
@@ -51,15 +54,16 @@ public class XPBank extends JavaPlugin {
     }
     
     public static XPBStorage getBank() {
-        return xpStore;
+        return xpBankStorage;
     }
     
     public static XPBStorage getHold() {
-        return xpHold;
+        return xpHoldStorage;
     }
     
     public static boolean hasPermission(CommandSender cs, String perm){
-        return (cs.hasPermission(perm) || cs.hasPermission(Properties.permAdmin));
+        return true; //testing
+//        return (cs.hasPermission(perm) || cs.hasPermission(Properties.permAdmin));
     }
     
     public static void log(String msg){
@@ -81,6 +85,6 @@ public class XPBank extends JavaPlugin {
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         econ = rsp.getProvider();
-        return econ != null;
+        return (econ != null);
     }
 }
