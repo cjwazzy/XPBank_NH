@@ -11,7 +11,8 @@ package com.noheroes.xpbank;
 public class Properties {
     
     //permissions:
-    public static String permUse = "xpb.use"; //use regular bank
+    public static String permUse = "xpb.use"; //see help, basic access
+    public static String permBank = "xpb.bank"; //bank the exp.
     public static String permHold = "xpb.hold"; //use temp holding
     public static String permAdmin = "xpb.admin"; //full access
     

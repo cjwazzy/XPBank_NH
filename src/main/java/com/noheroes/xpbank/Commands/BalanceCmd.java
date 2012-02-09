@@ -19,16 +19,17 @@ public class BalanceCmd extends GenericCmd {
     
     public BalanceCmd(CommandSender cs, String args[]){
         super(cs, args);
-        this.permission = Properties.permUse;
+        this.permission = Properties.permBank;
+        bank = XPBank.getBank();
     }
     
     @Override
     public boolean execute() throws MissingOrIncorrectArgumentException, InsufficientPermissionException {
         if(errorCheck())
             return true;
-
-        Messaging.send(player, "You have stored " 
-                + XPBank.getBank().getBalance(player.getName().toLowerCase()) + " experience.");
+        
+        Messaging.send(player, "`GYou have `Y" 
+                + bank.getBalance(player.getName()) + " `Gstored experience.");
         return true;
     }
 }

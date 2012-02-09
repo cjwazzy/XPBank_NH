@@ -7,6 +7,7 @@ package com.noheroes.xpbank.Commands;
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Interfaces.Cmd;
+import com.noheroes.xpbank.XPBStorage;
 import com.noheroes.xpbank.XPBank;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,6 +20,7 @@ abstract class GenericCmd implements Cmd {
     CommandSender cs; //Always populated
     String[] args; //Original Args from CommandListener
     Player player; //Only populated if cs is a player.  Only throws an error if mustBeAPlayer is true.
+    XPBStorage bank = null;
     
     //Default the generic to must be executed by a player, and no minimum arguments.
     String permission = "";

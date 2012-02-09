@@ -41,6 +41,10 @@ public class XPBCommandExecutor implements CommandExecutor {
                 this.cmd = new MeCmd(sender, args);
             else if (mainArg.equalsIgnoreCase("balance") || mainArg.equalsIgnoreCase("bal"))
                 this.cmd = new BalanceCmd(sender, args);
+            else if (mainArg.equalsIgnoreCase("hold"))
+                this.cmd = new HoldCmd(sender, args);
+            else if (mainArg.equalsIgnoreCase("retrieve") || mainArg.equalsIgnoreCase("return"))
+                this.cmd = new RetrieveCmd(sender, args);
 
             //Unknown
             else

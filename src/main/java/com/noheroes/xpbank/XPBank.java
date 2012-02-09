@@ -5,6 +5,7 @@
 package com.noheroes.xpbank;
 
 import com.noheroes.xpbank.Commands.XPBCommandExecutor;
+import java.io.IOException;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
@@ -18,13 +19,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class XPBank extends JavaPlugin {
 
     private static XPBank xpb;
-    private static final XPBStorage xpBankStorage = new XPBStorage();
-    private static final XPBStorage xpHoldStorage = new XPBStorage();
+    private static XPBStorage xpBankStorage;
+    private static XPBStorage xpHoldStorage;
     public static Economy econ = null;
     
     
     public void onDisable() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        XPBank.log("Disabled");
     }
 
     public void onEnable() {
@@ -36,17 +37,27 @@ public class XPBank extends JavaPlugin {
         
         XPBank.log("Registering with Vault");
         if(!setupEconomy()){
-            getLogger().warning("Failed to hook Vault, or Vault failed to hook economy.");
-            getLogger().warning("Disabling XPBank.");
+            getLogger().warning("Failed to hook Vault, or Vault failed to hook economy");
+            getLogger().warning("Disabling XPBank");
             getPluginLoader().disablePlugin(this);
         }
         
         XPBank.log("Initializing commands");
         getCommand("xpb").setExecutor(new XPBCommandExecutor(this));
         
-        XPBank.log("Connecting to storage.");
-        xpBankStorage.initStorage(Properties.miniFileName);
-        xpHoldStorage.initStorage(Properties.miniHoldName);
+        XPBank.log("Connecting to storage");
+        xpBankStorage = new XPBStorage(Properties.miniFileName);
+        xpHoldStorage = new XPBStorage(Properties.miniHoldName);
+        try {
+            xpBankStorage.initStorage();
+            xpHoldStorage.initStorage();
+        } catch (IOException ioe) {
+            getLogger().warning("Failed to connect to storage");
+            ioe.printStackTrace();
+            getPluginLoader().disablePlugin(this);
+        }
+        
+        XPBank.log("Plugin started");
     }
     
     public static XPBank get(){
