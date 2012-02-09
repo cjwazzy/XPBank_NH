@@ -21,7 +21,7 @@ public class XPBank extends JavaPlugin {
     private static XPBank xpb;
     private static XPBStorage xpBankStorage;
     private static XPBStorage xpHoldStorage;
-    public static Economy econ = null;
+    private static Economy econ = null;
     
     
     public void onDisable() {
@@ -72,6 +72,10 @@ public class XPBank extends JavaPlugin {
         return xpHoldStorage;
     }
     
+    public static Economy getEconomy() {
+        return econ;
+    }
+    
     public static boolean hasPermission(CommandSender cs, String perm){
         return true; //testing
 //        return (cs.hasPermission(perm) || cs.hasPermission(Properties.permAdmin));
@@ -90,12 +94,13 @@ public class XPBank extends JavaPlugin {
         Properties.perXPWithdrawl = xpConfig.getDouble("Fees.Withdrawl.PerXP", 0.0);
     }
     
-    private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
+    private Boolean setupEconomy()
+    {
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            econ = economyProvider.getProvider();
         }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        econ = rsp.getProvider();
+
         return (econ != null);
     }
 }

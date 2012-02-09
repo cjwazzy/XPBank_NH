@@ -16,9 +16,9 @@ import org.bukkit.command.CommandSender;
 /**
  * @author Sorklin <sorklin at gmail.com>
  */
-public class HoldCmd extends GenericCmd {
+public class StoreCmd extends GenericCmd {
     
-    public HoldCmd(CommandSender cs, String args[]){
+    public StoreCmd(CommandSender cs, String args[]){
         super(cs, args);
         this.permission = Properties.permHold;
         bank = XPBank.getHold();
@@ -39,7 +39,7 @@ public class HoldCmd extends GenericCmd {
 
         if(storedXP == xp) {
             Utilities.resetExp(player);
-            msg = "`GYou have stored `y" + storedXP + " `Gexperience. Type `b/xp retrieve `Gto get it back.";
+            msg = "`GYou have stored `y" + storedXP + " `Gexperience.";
         } else
             msg = "`rError.  Hold balance (" + storedXP + ") doesn't equal your exp (" + xp + ").";
 

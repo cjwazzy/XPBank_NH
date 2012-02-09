@@ -6,10 +6,7 @@ package com.noheroes.xpbank.Commands;
 
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
-import com.noheroes.xpbank.Properties;
-import com.noheroes.xpbank.Utilities;
-import com.noheroes.xpbank.XPBStorage;
-import com.noheroes.xpbank.XPBank;
+import com.noheroes.xpbank.*;
 import org.bukkit.command.CommandSender;
 
 
@@ -47,6 +44,7 @@ public class RetrieveCmd extends GenericCmd {
             msg = "`rYou have not placed any experience in the temp bank.";
         }
         
+        Messaging.send(player, msg);
         return true;
     }
 }
