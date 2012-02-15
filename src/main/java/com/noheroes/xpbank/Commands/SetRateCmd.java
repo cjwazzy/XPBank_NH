@@ -6,21 +6,20 @@ package com.noheroes.xpbank.Commands;
 
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
-import com.noheroes.xpbank.Messaging;
 import com.noheroes.xpbank.Properties;
-import com.noheroes.xpbank.XPBank;
 import org.bukkit.command.CommandSender;
 
 
 /**
  * @author Sorklin <sorklin at gmail.com>
  */
-public class BalanceCmd extends GenericCmd {
+public class SetRateCmd extends GenericCmd {
     
-    public BalanceCmd(CommandSender cs, String args[]){
+    
+    public SetRateCmd(CommandSender cs, String args[]){
         super(cs, args);
-        this.permission = Properties.permBank;
-        bank = XPBank.getBank();
+        this.mustBePlayer = false;
+        this.permission = Properties.permAdmin;
     }
     
     @Override
@@ -28,8 +27,7 @@ public class BalanceCmd extends GenericCmd {
         if(errorCheck())
             return true;
         
-        Messaging.send(player, "`GYou have `Y" 
-                + bank.getBalance(player.getName()) + " `Gstored experience.");
+       
         return true;
     }
 }

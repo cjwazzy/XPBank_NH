@@ -1,5 +1,5 @@
 ## YAML Template.
-
+LogTransactions: true
 Fees:
   Deposit:
     Flat: 0.0

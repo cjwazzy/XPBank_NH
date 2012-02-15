@@ -4,6 +4,8 @@
  */
 package com.noheroes.xpbank.Commands;
 
+import com.noheroes.xpbank.Events.XPBankTransaction;
+import com.noheroes.xpbank.Events.XPBankTransaction.TransactionType;
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Messaging;
@@ -11,6 +13,7 @@ import com.noheroes.xpbank.Properties;
 import com.noheroes.xpbank.XPBank;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 
@@ -73,9 +76,16 @@ public class WithdrawlCMD extends GenericCmd {
             bank.subtract(name, withdrawlXP);
             player.giveExp(withdrawlXP);
 
-            Messaging.send(player, "`YYou have retrieved `G" + withdrawlXP + " `Yexperience.");
+            Messaging.send(player, "`GYou have withdrawn `w" + withdrawlXP 
+                + " `Gexperience for the price of `w" + economy.format(price) + "`G.");
+            Messaging.send("`GYour XPBank balance is `w" + bank.getBalance(name));
         } else
             throw new MissingOrIncorrectArgumentException("No experience to withdrawl.");
+        
+        if(Properties.logTransactions){
+            XPBankTransaction event = new XPBankTransaction(TransactionType.WITHDRAWL, player, withdrawlXP, bank.getBalance(name));
+            Bukkit.getServer().getPluginManager().callEvent(event);
+        }
         
         return true;
     }

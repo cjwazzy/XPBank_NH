@@ -33,22 +33,23 @@ public class InfoCmd extends GenericCmd {
         int bankXP = XPBank.getBank().getBalance(name);
         int holdXP = XPBank.getHold().getBalance(name);
         
-//        double priceDeposit = Properties.flatFeeDeposit + (Properties.perXPDeposit * playerXP);
-//        double priceWithdrawl = Properties.flatFeeWithdrawl + (Properties.perXPWithdrawl * playerXP);
-        
         ArrayList<String> msgs = new ArrayList<String>();
-        msgs.add("`yYou have `w" + playerXP + "`y XP.");
+        msgs.add("`pYou have `w" + playerXP + "`p XP.");
         
-        if(bankXP > 0)
-            msgs.add("`yYour XP bank balance is `w" + bankXP + "`y XP.");
-        else
-            msgs.add("`yYou have not banked any experience.");
+        if(player.hasPermission(Properties.permBank)){
+            if(bankXP > 0)
+                msgs.add("`pYour XP bank balance is `w" + bankXP + "`p XP.");
+            else
+                msgs.add("`pYou have not banked any experience.");
+        }
         
-        if(holdXP > 0){
-            msgs.add("`yYou have temporarily stored `w" + holdXP + "`y XP. ");
-            msgs.add("`yType `w/xp retrieve`y to retrieve it.");
-        } else
-            msgs.add("`yYou do not have any experience in temporary storage.");
+        if(player.hasPermission(Properties.permHold)){
+            if(holdXP > 0){
+                msgs.add("`pYou have temporarily stored `w" + holdXP + "`p XP. ");
+                msgs.add("`pType `w/xp retrieve`p to retrieve it.");
+            } else
+                msgs.add("`pYou do not have any experience in temporary storage.");
+        }
         
         Messaging.mlSend(cs, msgs);
         return true;

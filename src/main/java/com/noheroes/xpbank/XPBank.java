@@ -5,6 +5,7 @@
 package com.noheroes.xpbank;
 
 import com.noheroes.xpbank.Commands.XPBCommandExecutor;
+import java.io.File;
 import java.io.IOException;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.CommandSender;
@@ -16,18 +17,27 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author Sorklin <sorklin at gmail.com>
  */
+
+
+/*
+ * TODO: add /xp confirm for /xp retrieve when player has experience.
+ */
 public class XPBank extends JavaPlugin {
 
     private static XPBank xpb;
     private static XPBStorage xpBankStorage;
     private static XPBStorage xpHoldStorage;
     private static Economy econ = null;
+    public static XPLogger transactionLog = null;
     
+    public final TransactionListener tl = new TransactionListener(this);
     
+    @Override
     public void onDisable() {
         XPBank.log("Disabled");
     }
 
+    @Override
     public void onEnable() {
         XPBank.xpb = this;
         
@@ -43,7 +53,7 @@ public class XPBank extends JavaPlugin {
         }
         
         XPBank.log("Initializing commands");
-        getCommand("xpb").setExecutor(new XPBCommandExecutor(this));
+        getCommand("xpbank").setExecutor(new XPBCommandExecutor(this));
         
         XPBank.log("Connecting to storage");
         xpBankStorage = new XPBStorage(Properties.miniFileName);
@@ -55,6 +65,12 @@ public class XPBank extends JavaPlugin {
             getLogger().warning("Failed to connect to storage");
             ioe.printStackTrace();
             getPluginLoader().disablePlugin(this);
+        }
+        
+        if(Properties.logTransactions) {
+            XPBank.log("Enabling transaction logging.");
+            transactionLog = new XPLogger("XPBank", getDataFolder() + File.separator + "transactions.log");
+            getServer().getPluginManager().registerEvents(tl, this);
         }
         
         XPBank.log("Plugin started");
@@ -77,25 +93,24 @@ public class XPBank extends JavaPlugin {
     }
     
     public static boolean hasPermission(CommandSender cs, String perm){
-        return true; //testing
-//        return (cs.hasPermission(perm) || cs.hasPermission(Properties.permAdmin));
+        return (cs.hasPermission(perm) || cs.hasPermission(Properties.permAdmin));
     }
     
     public static void log(String msg){
         xpb.getLogger().info(msg);
     }
     
-    private void loadXPConfig(Configuration xpConfig){
+    private void loadXPConfig(Configuration xpConfig) {
         xpConfig.options().copyDefaults(true);
         
         Properties.flatFeeDeposit = xpConfig.getDouble("Fees.Deposit.Flat", 0.0);
         Properties.flatFeeWithdrawl = xpConfig.getDouble("Fees.Withdrawl.Flat", 0.0);
         Properties.perXPDeposit = xpConfig.getDouble("Fees.Deposit.PerXP", 0.0);
         Properties.perXPWithdrawl = xpConfig.getDouble("Fees.Withdrawl.PerXP", 0.0);
+        Properties.logTransactions = xpConfig.getBoolean("LogTransactions", true);
     }
     
-    private Boolean setupEconomy()
-    {
+    private Boolean setupEconomy() {
         RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
         if (economyProvider != null) {
             econ = economyProvider.getProvider();

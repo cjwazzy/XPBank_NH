@@ -12,7 +12,7 @@ public class InsufficientPermissionException extends Exception {
 	 * Setting the message of the Exception to a new String
 	 */
 	public InsufficientPermissionException () {
-		this.message = "You do not have permission for that.";//msg: insufficientPermissionException
+		this.message = "You do not have permission for that.";
 	}
 	
 	/*

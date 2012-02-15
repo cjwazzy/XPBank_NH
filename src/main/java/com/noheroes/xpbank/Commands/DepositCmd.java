@@ -4,6 +4,8 @@
  */
 package com.noheroes.xpbank.Commands;
 
+import com.noheroes.xpbank.Events.XPBankTransaction;
+import com.noheroes.xpbank.Events.XPBankTransaction.TransactionType;
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Messaging;
@@ -12,6 +14,7 @@ import com.noheroes.xpbank.Utilities;
 import com.noheroes.xpbank.XPBank;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 
@@ -67,9 +70,14 @@ public class DepositCmd extends GenericCmd {
         bank.add(name, depositXP);
         Utilities.resetExp(player); //zero out xp.
         player.giveExp(currentXP - depositXP); //give back the remainder.
-        Messaging.send(player, "`GYou have deposited `y" + depositXP 
-                + " `Gexperience for the price of `y" + economy.format(price) + "`G.");
-        Messaging.send("Your XPBank balance is `y" + bank.getBalance(name));
+        Messaging.send(player, "`GYou have deposited `w" + depositXP 
+                + " `Gexperience for the price of `w" + economy.format(price) + "`G.");
+        Messaging.send("`GYour XPBank balance is `w" + bank.getBalance(name));
+        
+        if(Properties.logTransactions){
+            XPBankTransaction event = new XPBankTransaction(TransactionType.DEPOSIT, player, depositXP, bank.getBalance(name));
+            Bukkit.getServer().getPluginManager().callEvent(event);
+        }
         
         return true;
     }

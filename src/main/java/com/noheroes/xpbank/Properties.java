@@ -11,10 +11,10 @@ package com.noheroes.xpbank;
 public class Properties {
     
     //permissions:
-    public static String permUse = "xpb.use"; //see help, basic access
-    public static String permBank = "xpb.bank"; //bank the exp.
-    public static String permHold = "xpb.hold"; //use temp holding
-    public static String permAdmin = "xpb.admin"; //full access
+    public static String permUse = "xpbank.use"; //see help, basic access
+    public static String permBank = "xpbank.bank"; //bank the exp.
+    public static String permHold = "xpbank.hold"; //use temp holding
+    public static String permAdmin = "xpbank.admin"; //full access
     
     //storage filename.
     public static String miniFileName = "xp.mini";
@@ -25,5 +25,5 @@ public class Properties {
     public static double flatFeeWithdrawl = 0.0;
     public static double perXPDeposit = 0.0;
     public static double perXPWithdrawl = 0.0;
-    
+    public static boolean logTransactions = false;
 }

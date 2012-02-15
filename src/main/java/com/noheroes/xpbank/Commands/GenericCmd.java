@@ -48,9 +48,8 @@ abstract class GenericCmd implements Cmd {
             }
         }
         
-        if(!XPBank.hasPermission(cs, permission)){
+        if(!XPBank.hasPermission(cs, permission))
             throw new InsufficientPermissionException();
-        }
         
         if(args.length < minArg){
             throw new MissingOrIncorrectArgumentException();

@@ -8,4 +8,4 @@ commands:
   xpbank:
     description: Commands for main XP bank.
     aliases: [xpb, xp] 
-    usage: Type "/xpb help" for more information.
+    usage: "Aliases: '/xp' '/xpb'. Type '/xpbank help' for more information."

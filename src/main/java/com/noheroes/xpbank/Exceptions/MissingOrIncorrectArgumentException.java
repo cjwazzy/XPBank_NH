@@ -12,7 +12,7 @@ public class MissingOrIncorrectArgumentException extends Exception {
 	 * Setting the message of the Exception to a new String
 	 */
 	public MissingOrIncorrectArgumentException () {
-		this.message = "Missing or Incorrect Arguments. See /xpb help.";//msg: missingOrIncorrectArgumentException
+		this.message = "Missing or Incorrect Arguments. See /xpb help.";
 	}
 	
 	/*

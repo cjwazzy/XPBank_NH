@@ -25,7 +25,7 @@ public class RateCmd extends GenericCmd {
     public RateCmd(CommandSender cs, String args[]){
         super(cs, args);
         this.mustBePlayer = false;
-        this.permission = Properties.permUse;
+        this.permission = Properties.permBank;
         econ = XPBank.getEconomy();
     }
     
@@ -36,10 +36,10 @@ public class RateCmd extends GenericCmd {
         
         List<String> msg = new ArrayList<String>();
         
-        msg.add("`YDeposit: `w" + econ.format(Properties.flatFeeDeposit) + "`Y flat fee, plus `w" 
-                + econ.format(Properties.perXPDeposit) + "`Y per XP.");
-        msg.add("`YWithdrawl: `w" + econ.format(Properties.flatFeeWithdrawl) + "`Y flat fee, plus `w" 
-                + econ.format(Properties.perXPWithdrawl) + "`Y per XP.");
+        msg.add("`pDeposit: `w" + econ.format(Properties.flatFeeDeposit) + "`p flat fee, plus `w" 
+                + econ.format(Properties.perXPDeposit) + "`p per XP.");
+        msg.add("`pWithdrawl: `w" + econ.format(Properties.flatFeeWithdrawl) + "`p flat fee, plus `w" 
+                + econ.format(Properties.perXPWithdrawl) + "`p per XP.");
             
         Messaging.mlSend(cs, msg);
         return true;
