@@ -5,11 +5,11 @@
 package com.noheroes.xpbank.Commands;
 
 import com.noheroes.xpbank.Events.XPBankTransaction;
-import com.noheroes.xpbank.Events.XPBankTransaction.TransactionType;
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Messaging;
 import com.noheroes.xpbank.Properties;
+import com.noheroes.xpbank.Properties.TransactionType;
 import com.noheroes.xpbank.Utilities;
 import com.noheroes.xpbank.XPBank;
 import org.bukkit.Bukkit;
@@ -43,9 +43,10 @@ public class RetrieveCmd extends GenericCmd {
             xp = bank.getBalance(name);
             
             if((player.getTotalExperience() > 0) && !confirmed) {
-                Messaging.send(player, "`RWarning: `pRetrieving experience from temporary"); 
-                Messaging.send(player, "`pholding will overwrite any XP you are currently holding.");
-                Messaging.send(player, "`pType `w/xp confirm `pto confirm the retrieval.");
+                Messaging.send(player, "`RWarning: `rRetrieving experience from temporary"); 
+                Messaging.send(player, "`rholding will overwrite the XP you are currently holding.");
+                Messaging.send(player, "`rType `w/xp confirm `rto confirm the retrieval.");
+                XPBank.getConfirm().put(player, TransactionType.RETRIEVE);
                 return true;
             }
             

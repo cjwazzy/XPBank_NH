@@ -40,7 +40,7 @@ public class XPBCommandExecutor implements CommandExecutor {
             else if (mainArg.equalsIgnoreCase("balance") || mainArg.equalsIgnoreCase("info"))
                 this.cmd = new InfoCmd(sender, args);
             else if (mainArg.equalsIgnoreCase("store") || mainArg.equalsIgnoreCase("hold"))
-                this.cmd = new StoreCmd(sender, args);
+                this.cmd = new StoreCmd(sender, args, false);
             else if (mainArg.equalsIgnoreCase("retrieve") || mainArg.equalsIgnoreCase("return"))
                 this.cmd = new RetrieveCmd(sender, args, false);
             else if (mainArg.equalsIgnoreCase("deposit") || mainArg.equalsIgnoreCase("dep"))
@@ -54,7 +54,7 @@ public class XPBCommandExecutor implements CommandExecutor {
             else if (mainArg.equalsIgnoreCase("setrate"))
                 this.cmd = new PriceCmd(sender, args);
             else if (mainArg.equalsIgnoreCase("confirm"))
-                this.cmd = new RetrieveCmd(sender, args, true);
+                this.cmd = new ConfirmCMD(sender, args);
                     
             //Unknown
             else

@@ -26,4 +26,11 @@ public class Properties {
     public static double perXPDeposit = 0.0;
     public static double perXPWithdrawl = 0.0;
     public static boolean logTransactions = false;
+    
+    public enum TransactionType {
+        DEPOSIT,
+        WITHDRAWL,
+        HOLD,
+        RETRIEVE;
+    }
 }

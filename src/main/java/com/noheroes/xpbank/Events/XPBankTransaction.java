@@ -4,6 +4,7 @@
  */
 package com.noheroes.xpbank.Events;
 
+import com.noheroes.xpbank.Properties.TransactionType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -20,13 +21,6 @@ public class XPBankTransaction extends Event {
     private final int playersRemainingXP;
     private final int amount;
     private final int newBalance;
-    
-    public enum TransactionType {
-        DEPOSIT,
-        WITHDRAWL,
-        HOLD,
-        RETRIEVE;
-    }
     
     public XPBankTransaction(TransactionType type, Player player, int amount, int newBalance) {
         super("XPBankTransaction");

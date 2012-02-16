@@ -5,11 +5,11 @@
 package com.noheroes.xpbank.Commands;
 
 import com.noheroes.xpbank.Events.XPBankTransaction;
-import com.noheroes.xpbank.Events.XPBankTransaction.TransactionType;
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Messaging;
 import com.noheroes.xpbank.Properties;
+import com.noheroes.xpbank.Properties.TransactionType;
 import com.noheroes.xpbank.Utilities;
 import com.noheroes.xpbank.XPBank;
 import net.milkbowl.vault.economy.Economy;

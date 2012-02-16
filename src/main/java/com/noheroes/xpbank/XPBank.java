@@ -5,11 +5,14 @@
 package com.noheroes.xpbank;
 
 import com.noheroes.xpbank.Commands.XPBCommandExecutor;
+import com.noheroes.xpbank.Properties.TransactionType;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +24,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /*
  * TODO: add /xp confirm for /xp retrieve when player has experience.
+ * TODO: /xp store should have a confirm if you try to deposit over something that is already there.
+ * TODO: /xp clear (clear temp storage).
  */
 public class XPBank extends JavaPlugin {
 
@@ -30,7 +35,9 @@ public class XPBank extends JavaPlugin {
     private static Economy econ = null;
     public static XPLogger transactionLog = null;
     
-    public final TransactionListener tl = new TransactionListener(this);
+    private static HashMap<Player, TransactionType> playerConfirm = new HashMap<Player, TransactionType>();
+    
+//    public final TransactionListener tl = new TransactionListener(this);
     
     @Override
     public void onDisable() {
@@ -67,10 +74,13 @@ public class XPBank extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
         }
         
+        XPBank.log("Enabling listeners");
+        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        
         if(Properties.logTransactions) {
-            XPBank.log("Enabling transaction logging.");
+            XPBank.log("Enabling transaction logging");
             transactionLog = new XPLogger("XPBank", getDataFolder() + File.separator + "transactions.log");
-            getServer().getPluginManager().registerEvents(tl, this);
+            getServer().getPluginManager().registerEvents(new TransactionListener(this), this);
         }
         
         XPBank.log("Plugin started");
@@ -98,6 +108,10 @@ public class XPBank extends JavaPlugin {
     
     public static void log(String msg){
         xpb.getLogger().info(msg);
+    }
+    
+    public static HashMap<Player, TransactionType> getConfirm(){
+        return playerConfirm;
     }
     
     private void loadXPConfig(Configuration xpConfig) {

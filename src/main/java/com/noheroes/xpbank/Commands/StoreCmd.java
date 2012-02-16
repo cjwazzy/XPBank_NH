@@ -5,11 +5,11 @@
 package com.noheroes.xpbank.Commands;
 
 import com.noheroes.xpbank.Events.XPBankTransaction;
-import com.noheroes.xpbank.Events.XPBankTransaction.TransactionType;
 import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Messaging;
 import com.noheroes.xpbank.Properties;
+import com.noheroes.xpbank.Properties.TransactionType;
 import com.noheroes.xpbank.Utilities;
 import com.noheroes.xpbank.XPBank;
 import org.bukkit.Bukkit;
@@ -21,8 +21,11 @@ import org.bukkit.command.CommandSender;
  */
 public class StoreCmd extends GenericCmd {
     
-    public StoreCmd(CommandSender cs, String args[]){
+    private boolean confirmed;
+    
+    public StoreCmd(CommandSender cs, String args[], boolean confirmed){
         super(cs, args);
+        this.confirmed = confirmed;
         this.permission = Properties.permHold;
         bank = XPBank.getHold();
     }
@@ -35,6 +38,14 @@ public class StoreCmd extends GenericCmd {
         int xp = player.getTotalExperience();
         String name = player.getName().toLowerCase();
         String msg;
+        
+        if((bank.getBalance(name) > 0) && !confirmed) {
+            Messaging.send(player, "`RWarning: `rYou already have stored experience. Storing"); 
+            Messaging.send(player, "`ragain will overwrite that experience with your current total.");
+            Messaging.send(player, "`rType `w/xp confirm `rto confirm.");
+            XPBank.getConfirm().put(player, TransactionType.HOLD);
+            return true;
+        }
         
         //Add it to the bank.
         bank.setBalance(name, xp);
