@@ -40,7 +40,8 @@ public class DepositCmd extends GenericCmd {
         // /xp deposit <amount|all>
         
         String name = player.getName().toLowerCase();
-        int currentXP = player.getTotalExperience();
+        //int currentXP = player.getTotalExperience();
+        int currentXP = Utilities.getTotalExp(player);
         int depositXP;
         EconomyResponse er;
         

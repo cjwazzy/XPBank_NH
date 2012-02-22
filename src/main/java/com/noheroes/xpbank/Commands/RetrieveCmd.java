@@ -42,7 +42,7 @@ public class RetrieveCmd extends GenericCmd {
         if(bank.hasBalance(name)){
             xp = bank.getBalance(name);
             
-            if((player.getTotalExperience() > 0) && !confirmed) {
+            if((Utilities.getTotalExp(player) > 0) && !confirmed) {
                 Messaging.send(player, "`RWarning: `rRetrieving experience from temporary"); 
                 Messaging.send(player, "`rholding will overwrite the XP you are currently holding.");
                 Messaging.send(player, "`rType `w/xp confirm `rto confirm the retrieval.");

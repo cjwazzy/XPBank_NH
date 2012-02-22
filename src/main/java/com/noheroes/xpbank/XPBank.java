@@ -83,6 +83,9 @@ public class XPBank extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new TransactionListener(this), this);
         }
         
+        populateExpTable();
+        // debugDisplayTable();  // Displays the full exp table being used, simply used to check the formula was correct
+        
         XPBank.log("Plugin started");
     }
     
@@ -131,5 +134,19 @@ public class XPBank extends JavaPlugin {
         }
 
         return (econ != null);
+    }
+    
+    private void populateExpTable() {
+        int currentTotal = 0;
+        for (int i = 0; i < Properties.expTable.length; i++) {
+            Properties.expTable[i] = currentTotal;
+            currentTotal += 7 + (i * 7 >> 1);
+        }
+    }
+    
+    private void debugDisplayTable() {
+        for (int i = 0; i < Properties.expTable.length; i++) {
+            log(Properties.expTable[i] + ", ");
+        }
     }
 }

@@ -5,6 +5,7 @@
 package com.noheroes.xpbank.Events;
 
 import com.noheroes.xpbank.Properties.TransactionType;
+import com.noheroes.xpbank.Utilities;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -26,7 +27,8 @@ public class XPBankTransaction extends Event {
         super("XPBankTransaction");
         this.type = type;
         this.player = player.getName();
-        this.playersRemainingXP = player.getTotalExperience();
+        //this.playersRemainingXP = player.getTotalExperience();
+        this.playersRemainingXP = Utilities.getTotalExp(player);
         this.amount = amount;
         this.newBalance = newBalance;
     }

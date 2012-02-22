@@ -8,6 +8,7 @@ import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Messaging;
 import com.noheroes.xpbank.Properties;
+import com.noheroes.xpbank.Utilities;
 import com.noheroes.xpbank.XPBank;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -35,7 +36,8 @@ public class PriceCmd extends GenericCmd {
         // /xp price <amount|bank|me>
         
         String name = player.getName().toLowerCase();
-        int currentXP = player.getTotalExperience();
+        //int currentXP = player.getTotalExperience();
+        int currentXP = Utilities.getTotalExp(player);
         int bankXP = XPBank.getBank().getBalance(name);
         int xp;
         EconomyResponse er;

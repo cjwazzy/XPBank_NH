@@ -35,7 +35,8 @@ public class StoreCmd extends GenericCmd {
         if(errorCheck())
             return true;
         
-        int xp = player.getTotalExperience();
+        //int xp = player.getTotalExperience();
+        int xp = Utilities.getTotalExp(player);
         String name = player.getName().toLowerCase();
         String msg;
         

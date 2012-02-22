@@ -27,6 +27,9 @@ public class Properties {
     public static double perXPWithdrawl = 0.0;
     public static boolean logTransactions = false;
     
+    public static final int MAX_LEVEL = 1000;
+    public static final int expTable[] = new int[MAX_LEVEL];
+    
     public enum TransactionType {
         DEPOSIT,
         WITHDRAWL,

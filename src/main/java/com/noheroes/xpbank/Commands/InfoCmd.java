@@ -8,6 +8,7 @@ import com.noheroes.xpbank.Exceptions.InsufficientPermissionException;
 import com.noheroes.xpbank.Exceptions.MissingOrIncorrectArgumentException;
 import com.noheroes.xpbank.Messaging;
 import com.noheroes.xpbank.Properties;
+import com.noheroes.xpbank.Utilities;
 import com.noheroes.xpbank.XPBank;
 import java.util.ArrayList;
 import org.bukkit.command.CommandSender;
@@ -29,7 +30,8 @@ public class InfoCmd extends GenericCmd {
             return true;
         
         String name = player.getName().toLowerCase();
-        int playerXP = player.getTotalExperience();
+        //int playerXP = player.getTotalExperience();
+        int playerXP = Utilities.getTotalExp(player);
         int bankXP = XPBank.getBank().getBalance(name);
         int holdXP = XPBank.getHold().getBalance(name);
         
