@@ -18,7 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
- * @author Sorklin <sorklin at gmail.com>
+ * @author Sorklin <sorklin at gmail.com> & Morthis
  */
 
 
@@ -84,7 +84,7 @@ public class XPBank extends JavaPlugin {
         }
         
         populateExpTable();
-        // debugDisplayTable();  // Displays the full exp table being used, simply used to check the formula was correct
+        debugDisplayTable();  // Displays the full exp table being used, simply used to check the formula was correct
         
         XPBank.log("Plugin started");
     }
@@ -145,8 +145,11 @@ public class XPBank extends JavaPlugin {
     }
     
     private void debugDisplayTable() {
+        StringBuilder sb = new StringBuilder();
+        log("Experience Table generation:");
         for (int i = 0; i < Properties.expTable.length; i++) {
-            log(Properties.expTable[i] + ", ");
+            sb.append(Properties.expTable[i]).append(", ");
         }
+        log(sb.toString());
     }
 }

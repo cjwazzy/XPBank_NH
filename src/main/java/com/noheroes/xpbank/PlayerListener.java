@@ -5,7 +5,9 @@
 package com.noheroes.xpbank;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
@@ -14,8 +16,15 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class PlayerListener implements Listener {
     
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerDisconnect(PlayerQuitEvent event){
         XPBank.getConfirm().remove(event.getPlayer());
+    }
+    
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPlayerConnect (PlayerJoinEvent event){
+        XPBank.log("Player " + event.getPlayer().getName() + 
+                " joined with " + Utilities.getTotalExp(event.getPlayer())
+                + "xp (" + event.getPlayer().getTotalExperience() + " bukkit totalxp)");
     }
 }
