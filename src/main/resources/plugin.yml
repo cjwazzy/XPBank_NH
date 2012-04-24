@@ -1,6 +1,6 @@
 name: XPBank_NH
 main: com.noheroes.xpbank.XPBank
-version: 1.0
+version: 1.01
 author: Sorklin
 depend: [Vault]
 description: Allows players to temporarily and permenantly store their Experience.
