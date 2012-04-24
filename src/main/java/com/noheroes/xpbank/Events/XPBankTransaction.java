@@ -24,7 +24,6 @@ public class XPBankTransaction extends Event {
     private final int newBalance;
     
     public XPBankTransaction(TransactionType type, Player player, int amount, int newBalance) {
-        super("XPBankTransaction");
         this.type = type;
         this.player = player.getName();
         //this.playersRemainingXP = player.getTotalExperience();
